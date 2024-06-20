@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nproj>
+<nproj version="2.31" category="simple">
+    <preset>
+        <pattern>PDS3</pattern>
+        <sound set="true" filter="*.mp3"/>
+        <video set="true" filter="*.wmv,*.avi"/>
+        <image set="true" filter="*.jpg,*.png"/>
+        <res_count>4</res_count>
+        <default_res_lang>Korean</default_res_lang>
+        <export_script>pds</export_script>
+        <ncp>true</ncp>
+        <relation_link>true</relation_link>
+        <dummy>true</dummy>
+        <manual_action>true</manual_action>
+        <symbol_setting align="4" bgcolor="#00ff00" bgalpha="70" outline_alpha="70" textcolor="#000000" textsize="9" texton="1"/>
+        <margin left="0" top="0" right="0" bottom="0"/>
+    </preset>
+    <book>
+        <title>POEM</title>
+        <author></author>
+        <section>3</section>
+        <owner>1012</owner>
+        <code>3138</code>
+        <revision>8</revision>
+        <scale>0.001</scale>
+        <start_page side="">1</start_page>
+        <dot_is_line_segment>false</dot_is_line_segment>
+        <line_segment_length>1</line_segment_length>
+        <target_dpi>600</target_dpi>
+        <dotsize>1</dotsize>
+        <segment_info sub_code="" total_size="6" size="6" current_sequence="0" ncode_start_page="1" ncode_end_page="6"/>
+        <extra_info>pdf_page_count=6</extra_info>
+        <kind>0</kind>
+    </book>
+    <ticket>
+        <path></path>
+    </ticket>
+    <pdf>
+        <path>note_3138.pdf</path>
+    </pdf>
+    <config>
+        <resource_mapping_mode>NORMAL</resource_mapping_mode>
+    </config>
+    <pages count="6">
+        <!--crop_margin="left, right, top, bottom"-->
+        <page_item number="0" rotate_angle="0" x1="0" y1="0" x2="436.535" y2="612.283" crop_margin="8.50394,8.504,8.50299,8.50391" bg_disabled="false" page_type="0"/>
+        <page_item number="1" rotate_angle="0" x1="0" y1="0" x2="436.535" y2="612.283" crop_margin="8.50394,8.504,8.50299,8.50391" bg_disabled="false" page_type="0"/>
+        <page_item number="2" rotate_angle="0" x1="0" y1="0" x2="436.535" y2="612.283" crop_margin="8.50394,8.504,8.50299,8.50391" bg_disabled="false" page_type="0"/>
+        <page_item number="3" rotate_angle="0" x1="0" y1="0" x2="436.535" y2="612.283" crop_margin="8.50394,8.504,8.50299,8.50391" bg_disabled="false" page_type="0"/>
+        <page_item number="4" rotate_angle="0" x1="0" y1="0" x2="436.535" y2="612.283" crop_margin="8.50394,8.504,8.50299,8.50391" bg_disabled="false" page_type="0"/>
+        <page_item number="5" rotate_angle="0" x1="0" y1="0" x2="436.535" y2="612.283" crop_margin="8.50394,8.504,8.50299,8.50391" bg_disabled="false" page_type="0"/>
+    </pages>
+    <action_table>
+        <action>ChangeLanguage_Chinese</action>
+        <action>ChangeLanguage_English</action>
+        <action>ChangeLanguage_Japanese</action>
+        <action>Toggle_Language</action>
+        <action>Custom</action>
+        <action>DebugEnd</action>
+        <action>DebugStart</action>
+        <action>Play</action>
+        <action>RecordEnd</action>
+        <action>RecordPlay</action>
+        <action>RecordStart</action>
+        <action>StartRecord &gt;&gt;TmpFile</action>
+        <action>PlayEx</action>
+        <action>Stop</action>
+        <action>VolumeDown</action>
+        <action>VolumeUp</action>
+        <action>ContinuePlay</action>
+        <action>Icon</action>
+        <action>Action1</action>
+        <action>Action2</action>
+        <action>Action3</action>
+        <action>Action4</action>
+        <action>Action5</action>
+        <action>Action6</action>
+        <action>Action7</action>
+        <action>Action8</action>
+        <action>Action9</action>
+        <action>Action10</action>
+        <action>Answer1</action>
+        <action>Answer2</action>
+        <action>Question</action>
+        <action>Q&amp;A</action>
+        <action>UserAnswer</action>
+        <action>CustomDraw</action>
+        <action>NcodeBarcode</action>
+        <action>NcodeLabel</action>
+    </action_table>
+    <symbols>
+        <symbol page="0" page_name="001" type="Rectangle" x="33.9729" y="19.7086" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{e2d29dc2-da15-4f6f-beb8-4b07215e21c2}</id>
+            <command name="" action="webview" param="https://www.youtube.com/watch?v=IDDJiM6_ydI"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="0" page_name="001" type="Rectangle" x="99.9114" y="129.748" width="58.5782" height="207.761" lock="1" xylock="0">
+            <name></name>
+            <id>{0e565487-5a6a-45aa-b1e0-e52d8ee45569}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/15n53tup_3CeVkETl8MVabDbRaKAe-SAz/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="0" page_name="001" type="Rectangle" x="159.037" y="130.022" width="59.9469" height="207.487" lock="1" xylock="0">
+            <name></name>
+            <id>{436ea97b-47f2-4a4e-bcbd-a514ffc2a299}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1gOxZYyo1mFTYXlzXLYhTzRgHA2qSCGbj/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="0" page_name="001" type="Rectangle" x="219.258" y="130.022" width="57.2096" height="207.761" lock="1" xylock="0">
+            <name></name>
+            <id>{09d6e563-62b3-453f-a75b-11b23ca215ab}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1SrMC1cSQyDkmhfapjpkRLMPBuhUGbp7D/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="0" page_name="001" type="Rectangle" x="276.741" y="130.022" width="60.2206" height="207.761" lock="1" xylock="0">
+            <name></name>
+            <id>{601cdf7f-5de1-4fc5-b1d0-f88508d3747d}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1zXsNUTaT-jWNPbCqJ2eeV4cK72o4ygX0/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="0" page_name="001" type="Rectangle" x="336.962" y="130.022" width="58.5782" height="208.034" lock="1" xylock="0">
+            <name></name>
+            <id>{091c97c4-e7ca-4b8e-8b5c-e8d3ecf9c413}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1o_gw_cqguQTUmXG3Vi4x1DjBJYcVkp2s/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="0" page_name="001" type="Rectangle" x="115.484" y="19.4653" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{9c883c7f-9bee-4762-a433-e2401ada9b3c}</id>
+            <command name="" action="None" param="kakao"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="0" page_name="001" type="Rectangle" x="88.0802" y="19.4653" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{d9419fa3-edb8-4ddc-bf11-5087e7eb97fd}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1hTIkZE0R-zQYqS4BJ4VDuP5QA10LVFsY/view?usp=drive_link&#10;"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="0" page_name="001" type="Rectangle" x="61.3155" y="18.9786" width="26.0347" height="26.5214" lock="1" xylock="0">
+            <name></name>
+            <id>{c7faa76e-eaab-4168-9e0e-fa611564a687}</id>
+            <command name="" action="Play" param=""/>
+            <language_resources>
+                <language resource_country="korean" resource_type="Sound" resource_id="{36d605f7-c954-4cfa-ac06-59bc943a99cc}"/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="1" page_name="002" type="Rectangle" x="159.037" y="130.022" width="59.9469" height="207.487" lock="1" xylock="0">
+            <name></name>
+            <id>{60d31b45-5fb9-4033-8479-6b6a8396022d}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1Gki4cMX-TxLSre7uL28iGq8rYlndyuiR/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="1" page_name="002" type="Rectangle" x="380.37" y="18.972" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{aa856605-8b3d-4af0-9698-6a198af47069}</id>
+            <command name="" action="None" param="kakao"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="1" page_name="002" type="Rectangle" x="99.9114" y="129.748" width="58.5782" height="207.761" lock="1" xylock="0">
+            <name></name>
+            <id>{aae9d517-5ef8-47b1-ab79-ac71bbaff9f2}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1EJU0Eh-eJ_Hqz4zzk1-z4VvsSmrccA5m/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="1" page_name="002" type="Rectangle" x="219.258" y="130.022" width="57.2096" height="207.761" lock="1" xylock="0">
+            <name></name>
+            <id>{4e2f440f-5a63-483e-9968-eb0bc9d84077}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1G9cdqaWPTDEGaygXUQSkEzD7GPK8pUay/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="1" page_name="002" type="Rectangle" x="298.859" y="19.2153" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{827eb0f2-81b6-4116-a0a9-b9d851f26ea1}</id>
+            <command name="" action="webview" param="https://www.youtube.com/watch?v=IDDJiM6_ydI"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="1" page_name="002" type="Rectangle" x="352.966" y="18.972" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{6f8f8683-ce1a-48f7-a33a-e642fa516264}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1utUQfdY7LAcsFOluC9TVvfPBkwnC6fWo/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="1" page_name="002" type="Rectangle" x="276.741" y="130.022" width="60.2206" height="207.761" lock="1" xylock="0">
+            <name></name>
+            <id>{bfb4d8f7-3bed-48b5-b806-f8b49e91b659}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/16MdlMqjiKhGtaz6rhrWCAy2ZoU1g8RWW/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="1" page_name="002" type="Rectangle" x="336.962" y="130.022" width="58.5782" height="208.034" lock="1" xylock="0">
+            <name></name>
+            <id>{57c11bb9-355d-4be5-94b1-9d06f02dda21}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1A68bHk_t-OCUd7ivu4bGWJgA_1mEgL49/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="1" page_name="002" type="Rectangle" x="326.606" y="18.318" width="25.3334" height="26.8924" lock="1" xylock="0">
+            <name></name>
+            <id>{7a927ef6-014d-4dfa-b1b2-3ab44fe736e0}</id>
+            <command name="" action="Play" param=""/>
+            <language_resources>
+                <language resource_country="korean" resource_type="Sound" resource_id="{a8ea148f-aac2-439c-af0b-c0b05f0fe983}"/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="2" page_name="003" type="Rectangle" x="159.037" y="130.022" width="59.9469" height="207.487" lock="1" xylock="0">
+            <name></name>
+            <id>{778bd55e-6cf2-43a1-ad68-f522fec03cf5}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1vgQ3xnsJq8_ohAvoAhPUPXD4k5IUINuV/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="2" page_name="003" type="Rectangle" x="115.484" y="19.4653" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{e1d59b58-c547-435c-b7b2-6ee0c77c2433}</id>
+            <command name="" action="None" param="kakao"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="2" page_name="003" type="Rectangle" x="99.9114" y="129.748" width="58.5782" height="207.761" lock="1" xylock="0">
+            <name></name>
+            <id>{e609c33b-65a5-45e5-b452-096a88980fc0}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1AGhD-N9XawovXhM6K2VlKO7VbGkqJBhT/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="2" page_name="003" type="Rectangle" x="219.258" y="130.022" width="57.2096" height="207.761" lock="1" xylock="0">
+            <name></name>
+            <id>{1c8ad6d1-3852-4605-9126-e86710d1fc63}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1SYZR_KmY184mpi0rcWZs_g_lhAhodXCg/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="2" page_name="003" type="Rectangle" x="33.9729" y="19.7086" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{cd31c3eb-5cb3-487c-b928-c43bdcaba7fb}</id>
+            <command name="" action="webview" param="https://www.youtube.com/watch?v=IDDJiM6_ydI"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="2" page_name="003" type="Rectangle" x="88.0802" y="19.4653" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{d5327786-aee0-4a15-a08f-fef02fb0526e}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1hTIkZE0R-zQYqS4BJ4VDuP5QA10LVFsY/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="2" page_name="003" type="Rectangle" x="276.741" y="130.022" width="60.2206" height="207.761" lock="1" xylock="0">
+            <name></name>
+            <id>{c46b329d-ad4a-446c-8034-6b3eacb60d22}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1DsAzS1wMerip1Cj5KfTWWdRSVmtQqX2a/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="2" page_name="003" type="Rectangle" x="336.962" y="130.022" width="58.5782" height="208.034" lock="1" xylock="0">
+            <name></name>
+            <id>{5f0cf8aa-cad4-4d93-a714-d316d7fd3b3c}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/188uxZbji1xawTIN1fAAghzzTEQ3Z9G7z/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="2" page_name="003" type="Rectangle" x="62.3591" y="19.4872" width="24.1641" height="26.1129" lock="1" xylock="0">
+            <name></name>
+            <id>{3f2dc87e-99ca-4aca-886f-e19e7dc493d4}</id>
+            <command name="" action="Play" param=""/>
+            <language_resources>
+                <language resource_country="korean" resource_type="Sound" resource_id="{3285e6f6-b52e-42e1-a68c-bc9ee831b16b}"/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="3" page_name="004" type="Rectangle" x="336.962" y="130.022" width="58.5782" height="208.034" lock="1" xylock="0">
+            <name></name>
+            <id>{bec3dacb-2e4b-4024-98e8-6b70570ea2b5}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1qvFZ1eXMTCUiZpntFbTkKbCNIurg9XnO/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="3" page_name="004" type="Rectangle" x="219.258" y="130.022" width="57.2096" height="207.761" lock="1" xylock="0">
+            <name></name>
+            <id>{8d4acd31-fb6a-45dd-a468-98edbfc80ed7}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1o5AwaEv5cson2yRq9kcqDvkaryLd9vu4/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="3" page_name="004" type="Rectangle" x="159.037" y="130.022" width="59.9469" height="207.487" lock="1" xylock="0">
+            <name></name>
+            <id>{45836471-b8ef-414c-b6a5-521bd884b9bf}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1lM0IdxgxW7mx0UIBRO7MNW5hyWPuWgZv/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="3" page_name="004" type="Rectangle" x="380.37" y="18.972" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{bcc614ef-79e1-46b2-a976-e41dd827de55}</id>
+            <command name="" action="None" param="kakao"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="3" page_name="004" type="Rectangle" x="298.859" y="19.2153" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{eba066f2-4ac7-4b13-9d79-93dd4578c3dd}</id>
+            <command name="" action="webview" param="https://www.youtube.com/watch?v=IDDJiM6_ydI"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="3" page_name="004" type="Rectangle" x="99.9114" y="129.748" width="58.5782" height="207.761" lock="1" xylock="0">
+            <name></name>
+            <id>{ce07a004-98fa-426e-9734-526c7c12e786}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1LK3Wy4caPdll85qcAmba8RmowiZT3VTk/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="3" page_name="004" type="Rectangle" x="276.741" y="130.022" width="60.2206" height="207.761" lock="1" xylock="0">
+            <name></name>
+            <id>{a97d97e2-b922-47fe-bba8-5ad75b7e2286}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/12K6LPsyVjcefLAdBW2C6h7VMq19x5NUV/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="3" page_name="004" type="Rectangle" x="352.966" y="18.972" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{16b72449-7ff3-4080-8b1a-2574a33e32f6}</id>
+            <command name="" action="webview" param="https://drive.google.com/file/d/1YKtHE5PDBUF977TPAYLJTW02CV9ReqFe/view?usp=drive_link"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="3" page_name="004" type="Rectangle" x="326.606" y="17.9282" width="25.3334" height="27.2821" lock="1" xylock="0">
+            <name></name>
+            <id>{3bffb540-7179-46aa-8cf0-263960912224}</id>
+            <command name="" action="Play" param=""/>
+            <language_resources>
+                <language resource_country="korean" resource_type="Sound" resource_id="{b120e55d-0cd7-444c-8a8b-8f1299c86ddf}"/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="4" page_name="005" type="Rectangle" x="28.5165" y="18.1496" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{2ef0d8e1-e23e-405a-b8f7-77191b3fde40}</id>
+            <command name="" action="webview" param="https://www.youtube.com/watch?v=IDDJiM6_ydI"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="4" page_name="005" type="Rectangle" x="56.5129" y="17.8281" width="24.1641" height="26.1129" lock="1" xylock="0">
+            <name></name>
+            <id>{3ba34de9-f4a8-4f05-9789-05b2227f2888}</id>
+            <command name="" action="Play" param=""/>
+            <language_resources>
+                <language resource_country="korean" resource_type="Sound" resource_id="{9e3b1b11-1b1e-42be-8684-40679918ebc9}"/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="4" page_name="005" type="Rectangle" x="80.7968" y="18.1496" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{a5f03d07-f97d-4839-8d67-a383f563735c}</id>
+            <command name="" action="None" param="kakao"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="5" page_name="006" type="Rectangle" x="320.435" y="18.9291" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{02c05034-9c10-47f3-ae56-13b0709af28d}</id>
+            <command name="" action="webview" param="https://www.youtube.com/watch?v=IDDJiM6_ydI"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="5" page_name="006" type="Rectangle" x="348.431" y="18.6076" width="24.1641" height="26.1129" lock="1" xylock="0">
+            <name></name>
+            <id>{6ddb7679-c300-4a24-b183-0333a2baf966}</id>
+            <command name="" action="Play" param=""/>
+            <language_resources>
+                <language resource_country="korean" resource_type="Sound" resource_id="{9e3b1b11-1b1e-42be-8684-40679918ebc9}"/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+        <symbol page="5" page_name="006" type="Rectangle" x="372.715" y="18.9291" width="26.8559" height="25.7914" lock="1" xylock="0">
+            <name></name>
+            <id>{61ed56bf-f260-409d-91be-d0d471635bd9}</id>
+            <command name="" action="None" param="kakao"/>
+            <language_resources>
+                <language resource_country="korean" resource_type="" resource_id=""/>
+                <language resource_country="english" resource_type="" resource_id=""/>
+                <language resource_country="chinese" resource_type="" resource_id=""/>
+                <language resource_country="japanese" resource_type="" resource_id=""/>
+            </language_resources>
+            <matching_symbols previous="" next=""/>
+        </symbol>
+    </symbols>
+    <resources>
+        <resource type="Sound" editable="yes" removable="yes" ref_count="0">
+            <name>P1V4.mp3</name>
+            <id>{b120e55d-0cd7-444c-8a8b-8f1299c86ddf}</id>
+            <path>Resources/P1V4.mp3</path>
+            <file>P1V4.mp3</file>
+        </resource>
+        <resource type="Sound" editable="yes" removable="yes" ref_count="0">
+            <name>P1V5.mp3</name>
+            <id>{9e3b1b11-1b1e-42be-8684-40679918ebc9}</id>
+            <path>Resources/P1V5.mp3</path>
+            <file>P1V5.mp3</file>
+        </resource>
+        <resource type="Sound" editable="yes" removable="yes" ref_count="0">
+            <name>P1V1.mp3</name>
+            <id>{36d605f7-c954-4cfa-ac06-59bc943a99cc}</id>
+            <path>Resources/P1V1.mp3</path>
+            <file>P1V1.mp3</file>
+        </resource>
+        <resource type="Sound" editable="yes" removable="yes" ref_count="0">
+            <name>P1V2.mp3</name>
+            <id>{a8ea148f-aac2-439c-af0b-c0b05f0fe983}</id>
+            <path>Resources/P1V2.mp3</path>
+            <file>P1V2.mp3</file>
+        </resource>
+        <resource type="Sound" editable="yes" removable="yes" ref_count="0">
+            <name>P1V3.mp3</name>
+            <id>{3285e6f6-b52e-42e1-a68c-bc9ee831b16b}</id>
+            <path>Resources/P1V3.mp3</path>
+            <file>P1V3.mp3</file>
+        </resource>
+    </resources>
+</nproj>

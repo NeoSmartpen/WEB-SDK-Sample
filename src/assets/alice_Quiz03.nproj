@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nproj>
+<nproj version="2.31" category="simple">
+    <preset>
+        <pattern>PDS3</pattern>
+        <sound set="true" filter="*.mp3"/>
+        <video set="true" filter="*.wmv,*.avi"/>
+        <image set="true" filter="*.jpg,*.png"/>
+        <res_count>4</res_count>
+        <default_res_lang>Korean</default_res_lang>
+        <export_script>pds</export_script>
+        <ncp>true</ncp>
+        <relation_link>true</relation_link>
+        <dummy>true</dummy>
+        <manual_action>true</manual_action>
+        <symbol_setting align="4" bgcolor="#00ff00" bgalpha="70" outline_alpha="70" textcolor="#000000" textsize="9" texton="1"/>
+        <margin left="0" top="0" right="0" bottom="0"/>
+    </preset>
+    <book>
+        <title></title>
+        <author></author>
+        <section>3</section>
+        <owner>45</owner>
+        <code>3</code>
+        <revision>2</revision>
+        <scale>0.001</scale>
+        <start_page side="">1</start_page>
+        <dot_is_line_segment>false</dot_is_line_segment>
+        <line_segment_length>1</line_segment_length>
+        <target_dpi>600</target_dpi>
+        <dotsize>1</dotsize>
+        <segment_info sub_code="" total_size="1" size="1" current_sequence="0" ncode_start_page="1" ncode_end_page="1"/>
+        <extra_info></extra_info>
+        <kind>0</kind>
+    </book>
+    <ticket>
+        <path></path>
+    </ticket>
+    <pdf>
+        <path>엘리스그룹_Quiz03.pdf</path>
+    </pdf>
+    <config>
+        <resource_mapping_mode>NORMAL</resource_mapping_mode>
+    </config>
+    <pages count="1">
+        <!--crop_margin="left, right, top, bottom"-->
+        <page_item number="0" rotate_angle="0" x1="0" y1="0" x2="841.92" y2="595.2" crop_margin="0,0,0,0" bg_disabled="false" page_type="0"/>
+    </pages>
+    <action_table>
+        <action>ChangeLanguage_Chinese</action>
+        <action>ChangeLanguage_English</action>
+        <action>ChangeLanguage_Japanese</action>
+        <action>Toggle_Language</action>
+        <action>Custom</action>
+        <action>DebugEnd</action>
+        <action>DebugStart</action>
+        <action>Play</action>
+        <action>RecordEnd</action>
+        <action>RecordPlay</action>
+        <action>RecordStart</action>
+        <action>StartRecord &gt;&gt;TmpFile</action>
+        <action>PlayEx</action>
+        <action>Stop</action>
+        <action>VolumeDown</action>
+        <action>VolumeUp</action>
+        <action>ContinuePlay</action>
+        <action>Icon</action>
+        <action>Action1</action>
+        <action>Action2</action>
+        <action>Action3</action>
+        <action>Action4</action>
+        <action>Action5</action>
+        <action>Action6</action>
+        <action>Action7</action>
+        <action>Action8</action>
+        <action>Action9</action>
+        <action>Action10</action>
+        <action>Answer1</action>
+        <action>Answer2</action>
+        <action>Question</action>
+        <action>Q&amp;A</action>
+        <action>UserAnswer</action>
+        <action>CustomDraw</action>
+        <action>NcodeBarcode</action>
+        <action>NcodeLabel</action>
+    </action_table>
+    <symbols/>
+    <resources/>
+</nproj>

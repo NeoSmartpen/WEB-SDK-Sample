@@ -1,0 +1,51 @@
+{
+  "name": "web-sdk-sample2",
+  "version": "0.1.0",
+  "private": true,
+  "license": "GPL-3.0-only",
+  "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "dotenv": "^16.0.0",
+    "fabric": "^5.2.1",
+    "firebase": "^9.6.11",
+    "jszip": "^3.9.1",
+    "query-string": "^7.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "4.0.3",
+    "typescript": "^4.6.3",
+    "web_pen_sdk": "^0.7.3",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "start2": "set PORT=52095 && yarn start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/fabric": "^4.5.7",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/web-bluetooth": "^0.0.14"
+  }
+}
