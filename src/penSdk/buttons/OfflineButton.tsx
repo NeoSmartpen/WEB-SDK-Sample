@@ -1,7 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import React, { useEffect, useState } from "react";
 import { Button } from "@material-ui/core";
-import { sleep } from "web_view_sdk_test/dist/common";
 
 const OfflineButton = ({
   controller,
@@ -36,7 +35,7 @@ const OfflineButton = ({
       for (let j = 0; j < dots.length; j++) {
         const dot = dots[j];
         strokeProcess(dot);
-        await sleep(10);
+        await new Promise((r) => setTimeout(r, 10));
       }
     }
     setOfflineData(null);

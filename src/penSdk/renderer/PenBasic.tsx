@@ -17,7 +17,6 @@ import {
 } from "web_pen_sdk/dist/Util/type";
 import { NULL_PageInfo } from "../utils/constants";
 import Header from "../component/Header";
-import { isPlatePaper, isPUI, isSamePage } from "web_view_sdk_test/dist/common";
 import note_3138 from "../../assets/note_3138.nproj";
 import alice from "../../assets/alice_Quiz03.nproj";
 
@@ -96,12 +95,12 @@ const PenBasic = () => {
     const { canvas, hoverCanvas } = createCanvas();
     setCanvasFb(canvas);
     setHoverCanvasFb(hoverCanvas);
-  }, []);
+  }, []); 
 
   /** Setting Ncode noteImage/paperSize */
   useEffect(() => {
     async function getNoteImageUsingAPI(pageInfo) {
-      if (isPUI(pageInfo)) {
+      if (PenHelper.isPUI(pageInfo)) {
         return;
       }
       if (pageInfo.section === 0) {
@@ -136,7 +135,7 @@ const PenBasic = () => {
 
       // 페이지가 바뀔 때마다 PUI 세팅을 새로 해준다. 왜냐하면 페이지마다 PUI 위치가 다를 수 있기 때문
 
-      if (isPlatePaper(pageInfo)) {
+      if (PenHelper.isPlatePaper(pageInfo)) {
         // SmartPlate Case, 서버에서 가져온 이미지를 사용하지 않으므로 0으로 설정해주고, canvasFb의 backgroundColor를 white로 만들어준다.
         setImageBlobUrl(0);
         canvasFb.backgroundColor = "white";
@@ -174,7 +173,7 @@ const PenBasic = () => {
         return;
       }
 
-      if (pageInfo && isPlatePaper(pageInfo)) {
+      if (pageInfo && PenHelper.isPlatePaper(pageInfo)) {
         // In case of SmartPlate, not required bottom process.
         return;
       }
@@ -251,7 +250,7 @@ const PenBasic = () => {
    * @param {Dot} dot
    */
   const strokeProcess = (dot: Dot) => {
-    if (isPlatePaper(dot.pageInfo) && !plateMode) {
+    if (PenHelper.isPlatePaper(dot.pageInfo) && !plateMode) {
       // SmartPlate를 터치했는데 plateMode가 on으로 설정되지 않으면 사용하지 못하도록 함.
       if (dot.dotType === 0) {
         // Show alert message only if penDown
@@ -265,8 +264,8 @@ const PenBasic = () => {
     );
     /** Update pageInfo either pageInfo !== NULL_PageInfo or pageInfo changed */
     if (
-      (!pageInfo && !isSamePage(dot.pageInfo, NULL_PageInfo)) ||
-      (pageInfo && !isSamePage(pageInfo, dot.pageInfo))
+      (!pageInfo && !PenHelper.isSamePage(dot.pageInfo, NULL_PageInfo)) ||
+      (pageInfo && !PenHelper.isSamePage(pageInfo, dot.pageInfo))
     ) {
       setPageInfo(dot.pageInfo);
     }
@@ -282,7 +281,7 @@ const PenBasic = () => {
     /** Convert SmartPlate ncode dot coordinate values ​​according to the view size */
     const view = { width: canvasFb.width, height: canvasFb.height };
     let screenDot: ScreenDot;
-    if (isPlatePaper(dot.pageInfo)) {
+    if (PenHelper.isPlatePaper(dot.pageInfo)) {
       // Smart Plate
       screenDot = PenHelper.ncodeToScreen_smartPlate(
         dot,
@@ -503,7 +502,7 @@ const PenBasic = () => {
    */
   const setCanvasAngle = (rotate: number) => {
     if (![0, 90, 180, 270].includes(rotate)) return;
-    if (!pageInfo || !isPlatePaper(pageInfo)) return;
+    if (!pageInfo || !PenHelper.isPlatePaper(pageInfo)) return;
 
     if (
       Math.abs(angle - rotate) / 90 === 1 ||
