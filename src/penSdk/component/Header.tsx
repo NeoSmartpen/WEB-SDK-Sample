@@ -63,12 +63,7 @@ const Header = ({
   passwordPen,
   authorized,
   offlineData,
-  setOfflineData,
-  pageInfo,
-  paperSize,
-  imageBlobUrl,
-  strokeProcess,
-  setPageInfo,
+  drawingOffline,
 }) => {
   const classes = useStyle();
   return (
@@ -98,12 +93,7 @@ const Header = ({
           <OfflineButton
             controller={controller}
             offlineData={offlineData}
-            setOfflineData={setOfflineData}
-            strokeProcess={strokeProcess}
-            setPageInfo={setPageInfo}
-            pageInfo={pageInfo}
-            paperSize={paperSize}
-            imageBlobUrl={imageBlobUrl}
+            drawingOffline={drawingOffline}
           />
         ) : (
           ""

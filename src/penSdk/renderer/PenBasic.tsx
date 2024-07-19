@@ -68,7 +68,10 @@ const PenBasic = () => {
   const [ctx, setCtx] = useState<any>();
 
   const [pageInfo, setPageInfo] = useState<PageInfo>();
+  const pendingDotsRef = React.useRef<Dot[]>([]);
+  const [isBackgroundImageSet, setIsBackgroundImageSet] = useState<boolean>(false);
 
+  const [imageChangeCount, setImageChangeCount] = useState<number>(0);
   const [noteWidth, setNoteWidth] = useState<number>(0);
   const [noteHeight, setNoteHeight] = useState<number>(0);
 
@@ -95,7 +98,7 @@ const PenBasic = () => {
     const { canvas, hoverCanvas } = createCanvas();
     setCanvasFb(canvas);
     setHoverCanvasFb(hoverCanvas);
-  }, []); 
+  }, []);
 
   /** Setting Ncode noteImage/paperSize */
   useEffect(() => {
@@ -140,10 +143,12 @@ const PenBasic = () => {
         setImageBlobUrl(0);
         canvasFb.backgroundColor = "white";
         canvasFb.renderAll();
+        setIsBackgroundImageSet(true);
       }
     }
 
     if (pageInfo) {
+      setIsBackgroundImageSet(false);
       getNoteImageUsingAPI(pageInfo);
     }
   }, [pageInfo]);
@@ -163,6 +168,7 @@ const PenBasic = () => {
         setNoteWidth(image.width);
         setNoteHeight(image.height);
       };
+      setImageChangeCount(imageChangeCount + 1);
     }
   }, [imageBlobUrl]);
 
@@ -198,7 +204,10 @@ const PenBasic = () => {
 
       canvasFb.setBackgroundImage(
         imageBlobUrl,
-        canvasFb.renderAll.bind(canvasFb),
+        () => {
+          canvasFb.renderAll();
+          setIsBackgroundImageSet(true);
+        },
         {
           // Resizing noteImage to fit canvas size
           scaleX: canvasFb.width / noteWidth,
@@ -210,7 +219,13 @@ const PenBasic = () => {
         }
       );
     }
-  }, [noteWidth, noteHeight, angle, pageInfo]);
+  }, [noteWidth, noteHeight, angle, imageChangeCount]);
+
+  useEffect(() => {
+    if (isBackgroundImageSet && pendingDotsRef.current.length > 0) {
+      processPendingDots();
+    }
+  }, [isBackgroundImageSet])
 
   /**
    * This callback type is called `dotCallback`.
@@ -244,37 +259,19 @@ const PenBasic = () => {
     return { canvas, hoverCanvas };
   };
 
+  const processPendingDots = () => {
+    pendingDotsRef.current.forEach((dot) => processDot(dot));
+    pendingDotsRef.current = [];
+  };
+  
   /**
-   * Process ncode dot.
+   * Process pending dot after pageInfo is updated.
    *
    * @param {Dot} dot
    */
-  const strokeProcess = (dot: Dot) => {
-    if (PenHelper.isPlatePaper(dot.pageInfo) && !plateMode) {
-      // SmartPlate를 터치했는데 plateMode가 on으로 설정되지 않으면 사용하지 못하도록 함.
-      if (dot.dotType === 0) {
-        // Show alert message only if penDown
-        alert("Plate Mode를 on으로 설정한 후, 캔버스를 생성해주세요.");
-      }
-      return;
-    }
-    console.log(`x: ${dot.x} y: ${dot.y}`);
-    console.log(
-      `s: ${pageInfo?.section}, o: ${pageInfo?.owner}, b: ${pageInfo?.book},`
-    );
-    /** Update pageInfo either pageInfo !== NULL_PageInfo or pageInfo changed */
-    if (
-      (!pageInfo && !PenHelper.isSamePage(dot.pageInfo, NULL_PageInfo)) ||
-      (pageInfo && !PenHelper.isSamePage(pageInfo, dot.pageInfo))
-    ) {
-      setPageInfo(dot.pageInfo);
-    }
-
-    if (imageBlobUrl === undefined) {
-      return;
-    }
-
-    if (!paperSize) {
+  const processDot = (dot: Dot) => {
+    if (!isBackgroundImageSet || imageBlobUrl === undefined || !paperSize) {
+      pendingDotsRef.current.push(dot);
       return;
     }
 
@@ -319,6 +316,63 @@ const PenBasic = () => {
       console.log("ctx : " + ctx);
     }
   };
+
+  const drawingOffline = async () => {
+    if (offlineData === null) {
+      return;
+    }
+
+    await new Promise<void>((resolve) => {
+      setPageInfo(offlineData[0].Dots[0].pageInfo);
+      setTimeout(resolve, 100);
+    });
+
+    // paperSize가 설정될 때까지 기다립니다.
+    while (!paperSize) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+    for (let i = 0; i < offlineData.length; i++) {
+      const dots = offlineData[i].Dots;
+      for (let j = 0; j < dots.length; j++) {
+        const dot = dots[j];
+        await new Promise<void>(resolve => {
+          strokeProcess(dot);
+          setTimeout(resolve, 100);
+        });
+      }
+    }
+
+    setOfflineData(null);
+  }
+
+  /**
+   * Process ncode dot.
+   *
+   * @param {Dot} dot
+   */
+  const strokeProcess = (dot: Dot) => {
+    if (PenHelper.isPlatePaper(dot.pageInfo) && !plateMode) {
+      // SmartPlate를 터치했는데 plateMode가 on으로 설정되지 않으면 사용하지 못하도록 함.
+      if (dot.dotType === 0) {
+        // Show alert message only if penDown
+        alert("Plate Mode를 on으로 설정한 후, 캔버스를 생성해주세요.");
+      }
+      return;
+    }
+    console.log(
+      `s: ${pageInfo?.section}, o: ${pageInfo?.owner}, b: ${pageInfo?.book}, p: ${pageInfo?.page}`
+    );
+    /** Update pageInfo either pageInfo !== NULL_PageInfo or pageInfo changed */
+    if (
+      (!pageInfo && !PenHelper.isSamePage(dot.pageInfo, NULL_PageInfo)) ||
+      (pageInfo && !PenHelper.isSamePage(pageInfo, dot.pageInfo))
+    ) {
+      pendingDotsRef.current.push(dot);
+      setPageInfo(dot.pageInfo);
+    } else {
+      processDot(dot);
+    };
+  }
 
   let resolveOfflineDataPromise: {
     resolve: (value: Stroke[]) => void;
@@ -585,13 +639,8 @@ const PenBasic = () => {
         penSettingInfo={penSettingInfo}
         passwordPen={passwordPen}
         authorized={authorized}
-        pageInfo={pageInfo}
-        paperSize={paperSize}
         offlineData={offlineData}
-        setOfflineData={setOfflineData}
-        imageBlobUrl={imageBlobUrl}
-        strokeProcess={strokeProcess}
-        setPageInfo={setPageInfo}
+        drawingOffline={drawingOffline}
       />
       <div id="abc" className={classes.mainBackground}>
         <canvas
