@@ -92,7 +92,10 @@ const PenBasic = () => {
 
   const [authorized, setAuthorized] = useState<boolean>(false);
 
-  const [offlineData, setOfflineData] = useState<Stroke[] | null>(null);
+  // const [offlineData, setOfflineData] = useState<Stroke[] | null>(null);
+  const [ignored, forceUpdate] = React.useReducer((x) => x + 1, 0);
+  const offlineDataRef = React.useRef<Stroke[] | null>(null);
+  const [offlineDataDrawing, setOfflineDataDrawing] = useState<boolean>(false);
 
   useEffect(() => {
     const { canvas, hoverCanvas } = createCanvas();
@@ -223,9 +226,49 @@ const PenBasic = () => {
 
   useEffect(() => {
     if (isBackgroundImageSet && pendingDotsRef.current.length > 0) {
+      console.log("processPendingDots 전");
       processPendingDots();
     }
   }, [isBackgroundImageSet])
+
+  useEffect(() => {
+    const drawingOfflineData = async () => {
+      if (offlineDataRef.current === null) {
+        return;
+      }
+
+      const offlineData = offlineDataRef.current;
+      for (let i = 0; i < offlineData.length; i++) {
+        const dots = offlineData[i].Dots;
+        for (let j = 0; j < dots.length; j++) {
+          const dot = dots[j];
+          await new Promise<void>(resolve => {
+            strokeProcess(dot);
+            setTimeout(resolve, 500);
+          });
+        }
+
+        offlineDataRef.current = offlineDataRef.current?.slice(1);
+      }
+
+      setOfflineDataDrawing(false);
+      offlineDataRef.current = null;
+    }
+
+    if (offlineDataRef.current === null) {
+      return;
+    }
+
+    if (!offlineDataDrawing) {
+      return;
+    }
+
+    if (pageInfo && paperSize) {
+      drawingOfflineData();
+    } else {
+      setPageInfo(offlineDataRef.current[0].Dots[0].pageInfo);
+    }
+  }, [offlineDataDrawing, pageInfo, paperSize]);
 
   /**
    * This callback type is called `dotCallback`.
@@ -318,33 +361,8 @@ const PenBasic = () => {
   };
 
   const drawingOffline = async () => {
-    if (offlineData === null) {
-      return;
-    }
-
-    await new Promise<void>((resolve) => {
-      setPageInfo(offlineData[0].Dots[0].pageInfo);
-      setTimeout(resolve, 100);
-    });
-
-    // paperSize가 설정될 때까지 기다립니다.
-    while (!paperSize) {
-      await new Promise(resolve => setTimeout(resolve, 100));
-    }
-    for (let i = 0; i < offlineData.length; i++) {
-      const dots = offlineData[i].Dots;
-      for (let j = 0; j < dots.length; j++) {
-        const dot = dots[j];
-        await new Promise<void>(resolve => {
-          strokeProcess(dot);
-          setTimeout(resolve, 100);
-        });
-      }
-    }
-
-    setOfflineData(null);
+    setOfflineDataDrawing(true);
   }
-
   /**
    * Process ncode dot.
    *
@@ -427,7 +445,8 @@ const PenBasic = () => {
         try {
           const result = await requestOfflineData(sp, op, no);
           console.log("requestOfflineData result: ", result);
-          setOfflineData(result);
+          offlineDataRef.current = result;
+          forceUpdate();
         } catch (e) {
           console.log("requestOfflineData error: " + e);
         }
@@ -639,7 +658,7 @@ const PenBasic = () => {
         penSettingInfo={penSettingInfo}
         passwordPen={passwordPen}
         authorized={authorized}
-        offlineData={offlineData}
+        offlineData={offlineDataRef.current}
         drawingOffline={drawingOffline}
       />
       <div id="abc" className={classes.mainBackground}>

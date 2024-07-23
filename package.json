@@ -21,6 +21,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start2": "set PORT=52095 && yarn start",
+    "start-legacy": "set NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
