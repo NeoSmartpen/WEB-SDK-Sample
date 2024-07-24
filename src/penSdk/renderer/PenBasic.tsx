@@ -5,7 +5,7 @@ import {
   PenMessageType,
   PenController,
 } from "web_pen_sdk";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { fabric } from "fabric";
 import {
   Dot,
@@ -67,9 +67,9 @@ const PenBasic = () => {
   const [hoverCanvasFb, setHoverCanvasFb] = useState<any>();
   const [ctx, setCtx] = useState<any>();
 
-  const [pageInfo, setPageInfo] = useState<PageInfo>();
-  const pendingDotsRef = React.useRef<Dot[]>([]);
-  const [isBackgroundImageSet, setIsBackgroundImageSet] = useState<boolean>(false);
+  const [isPageReady, setIsPageReady] = useState<boolean>(false);
+  const pendingDotsRef = useRef<Dot[]>([]);
+  const pageReadyEventRef = useRef(new EventTarget());
 
   const [imageChangeCount, setImageChangeCount] = useState<number>(0);
   const [noteWidth, setNoteWidth] = useState<number>(0);
@@ -78,24 +78,31 @@ const PenBasic = () => {
   const [hoverPoint, setHoverPoint] = useState<any>();
   const [angle, setAngle] = useState<number>(0);
 
-  const [imageBlobUrl, setImageBlobUrl] = useState<any>();
-
-  const [paperSize, setPaperSize] = useState<PaperSize>();
-
   const [plateMode, setPlateMode] = useState<boolean>(false);
-
   const [passwordPen, setPasswordPen] = useState<boolean>(false);
-
   const [penVersionInfo, setPenVersionInfo] = useState<VersionInfo>();
   const [penSettingInfo, setPenSettingInfo] = useState<SettingInfo>();
   const [controller, setController] = useState<PenController>();
 
   const [authorized, setAuthorized] = useState<boolean>(false);
 
-  // const [offlineData, setOfflineData] = useState<Stroke[] | null>(null);
-  const [ignored, forceUpdate] = React.useReducer((x) => x + 1, 0);
-  const offlineDataRef = React.useRef<Stroke[] | null>(null);
+  const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
+  const offlineDataRef = useRef<Stroke[] | null>(null);
   const [offlineDataDrawing, setOfflineDataDrawing] = useState<boolean>(false);
+  
+  const [isDrawingPaused, setIsDrawingPaused] = useState<boolean>(false);
+  const [groupedOfflineData, setGroupedOfflineData] = useState<Map<string, Dot[]>>(new Map());
+  const currentGroupIndex = useRef<number>(0);
+
+  const [currentPageInfo, setCurrentPageInfo] = useState<PageInfo | null>(null);
+  const [isBackgroundImageSet, setIsBackgroundImageSet] = useState<boolean>(false);
+  const [imageBlobUrl, setImageBlobUrl] = useState<any>();
+  const [paperSize, setPaperSize] = useState<any>(null);
+  
+  const currentPageInfoRef = useRef<PageInfo | null>(null);
+  const isBackgroundImageSetRef = useRef(false);
+  const imageBlobUrlRef = useRef(null);
+  const paperSizeRef = useRef(null);
 
   useEffect(() => {
     const { canvas, hoverCanvas } = createCanvas();
@@ -103,58 +110,101 @@ const PenBasic = () => {
     setHoverCanvasFb(hoverCanvas);
   }, []);
 
-  /** Setting Ncode noteImage/paperSize */
   useEffect(() => {
-    async function getNoteImageUsingAPI(pageInfo) {
-      if (PenHelper.isPUI(pageInfo)) {
-        return;
-      }
-      if (pageInfo.section === 0) {
-        // pageInfo.section === 0 -> abnormal pageInfo
-        return;
-      }
-      try {
-        await NoteServer.getNoteImage(pageInfo, setImageBlobUrl);
-      } catch (e) {
-        console.log(e);
-      }
+    isBackgroundImageSetRef.current = isBackgroundImageSet;
+  }, [isBackgroundImageSet]);
 
-      let nprojUrl: string | null = null;
-      if (pageInfo.book && pageInfo.book === 3138) {
-        nprojUrl = note_3138;
-      } else if (pageInfo.owner === 45 && pageInfo.book === 3) {
-        nprojUrl = alice;
-      }
-      try {
-        await NoteServer.setNprojInPuiController(nprojUrl, pageInfo);
+  useEffect(() => {
+    imageBlobUrlRef.current = imageBlobUrl;
+  }, [imageBlobUrl]);
 
-        const paperSize = (await NoteServer.extractMarginInfo(
-          nprojUrl,
-          pageInfo
-        )) as any;
-        setPaperSize(paperSize);
-      } catch (e) {
-        console.log(e);
-      } finally {
-        console.log("success");
-      }
+  useEffect(() => {
+    paperSizeRef.current = paperSize;
+  }, [paperSize]);
 
-      // 페이지가 바뀔 때마다 PUI 세팅을 새로 해준다. 왜냐하면 페이지마다 PUI 위치가 다를 수 있기 때문
+  useEffect(() => {
+    currentPageInfoRef.current = currentPageInfo;
+  }, [currentPageInfo]);
 
-      if (PenHelper.isPlatePaper(pageInfo)) {
-        // SmartPlate Case, 서버에서 가져온 이미지를 사용하지 않으므로 0으로 설정해주고, canvasFb의 backgroundColor를 white로 만들어준다.
-        setImageBlobUrl(0);
-        canvasFb.backgroundColor = "white";
-        canvasFb.renderAll();
-        setIsBackgroundImageSet(true);
+  useEffect(() => {
+    if (isBackgroundImageSet && imageBlobUrl && paperSize) {
+      setIsPageReady(true);
+      pageReadyEventRef.current.dispatchEvent(new Event('pageReady'));
+    } else {
+      setIsPageReady(false);
+    }
+  }, [isBackgroundImageSet, imageBlobUrl, paperSize]);
+
+  const waitForPageReady = () => {
+    return new Promise<void>((resolve) => {
+      if (isPageReady) {
+        resolve();
+      } else {
+        pageReadyEventRef.current.addEventListener('pageReady', () => resolve(), { once: true });
       }
+    });
+  };
+
+  async function getNoteImageUsingAPI(pageInfo) {
+    if (PenHelper.isPUI(pageInfo)) {
+      return;
+    }
+    if (pageInfo.section === 0) {
+      // pageInfo.section === 0 -> abnormal pageInfo
+      return;
+    }
+    try {
+      await NoteServer.getNoteImage(pageInfo, setImageBlobUrl);
+    } catch (e) {
+      console.log(e);
     }
 
-    if (pageInfo) {
-      setIsBackgroundImageSet(false);
-      getNoteImageUsingAPI(pageInfo);
+    let nprojUrl: string | null = null;
+    if (pageInfo.book && pageInfo.book === 3138) {
+      nprojUrl = note_3138;
+    } else if (pageInfo.owner === 45 && pageInfo.book === 3) {
+      nprojUrl = alice;
     }
-  }, [pageInfo]);
+    try {
+      await NoteServer.setNprojInPuiController(nprojUrl, pageInfo);
+
+      const paperSize = (await NoteServer.extractMarginInfo(
+        nprojUrl,
+        pageInfo
+      )) as any;
+      setPaperSize(paperSize);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      console.log("success");
+    }
+
+    // 페이지가 바뀔 때마다 PUI 세팅을 새로 해준다. 왜냐하면 페이지마다 PUI 위치가 다를 수 있기 때문
+
+    if (PenHelper.isPlatePaper(pageInfo)) {
+      // SmartPlate Case, 서버에서 가져온 이미지를 사용하지 않으므로 0으로 설정해주고, canvasFb의 backgroundColor를 white로 만들어준다.
+      setImageBlobUrl(0);
+      canvasFb.backgroundColor = "white";
+      canvasFb.renderAll();
+      setIsBackgroundImageSet(true);
+    }
+  }
+
+  const setCurrentPageInfoAndPrepare = async (newPageInfo: PageInfo) => {
+    setIsBackgroundImageSet(false);
+    setImageBlobUrl(null);
+    setPaperSize(null);
+    setCurrentPageInfo(newPageInfo);
+
+    await new Promise<void>(resolve => setTimeout(resolve, 0));
+
+    await getNoteImageUsingAPI(newPageInfo);
+
+    await waitForPageReady();
+
+    setIsDrawingPaused(false);
+  };
+
 
   useEffect(() => {
     if (hoverCanvasFb) {
@@ -177,12 +227,12 @@ const PenBasic = () => {
 
   useEffect(() => {
     if (noteWidth > 0 && noteHeight > 0) {
-      if (pageInfo && pageInfo.section === 0) {
+      if (currentPageInfoRef.current && currentPageInfoRef.current.section === 0) {
         // pageInfo.section === 0 -> abnormal pageInfo
         return;
       }
 
-      if (pageInfo && PenHelper.isPlatePaper(pageInfo)) {
+      if (currentPageInfoRef.current && PenHelper.isPlatePaper(currentPageInfoRef.current)) {
         // In case of SmartPlate, not required bottom process.
         return;
       }
@@ -225,50 +275,65 @@ const PenBasic = () => {
   }, [noteWidth, noteHeight, angle, imageChangeCount]);
 
   useEffect(() => {
-    if (isBackgroundImageSet && pendingDotsRef.current.length > 0) {
-      console.log("processPendingDots 전");
+    if (isBackgroundImageSet && paperSizeRef.current && pendingDotsRef.current.length > 0) {
       processPendingDots();
     }
-  }, [isBackgroundImageSet])
+  }, [isBackgroundImageSet, paperSize]);
 
   useEffect(() => {
-    const drawingOfflineData = async () => {
-      if (offlineDataRef.current === null) {
+    const groupOfflineDataByPageInfo = (offlineData: Stroke[]) => {
+      const grouped = new Map<string, Dot[]>();
+      offlineData.forEach(stroke => {
+        stroke.Dots.forEach(dot => {
+          const key = `${dot.pageInfo.section}-${dot.pageInfo.owner}-${dot.pageInfo.book}-${dot.pageInfo.page}`;
+          if (!grouped.has(key)) {
+            grouped.set(key, []);
+          }
+          grouped.get(key)!.push(dot);
+        });
+      });
+      return grouped;
+    };
+
+    if (offlineDataRef.current && !offlineDataDrawing) {
+      const grouped = groupOfflineDataByPageInfo(offlineDataRef.current);
+      setGroupedOfflineData(grouped);
+      currentGroupIndex.current = 0;
+    }
+  }, [offlineDataRef.current]);
+
+  useEffect(() => {
+    const processNextGroup = async () => {
+      if (currentGroupIndex.current >= groupedOfflineData.size) {
+        setOfflineDataDrawing(false);
         return;
       }
-
-      const offlineData = offlineDataRef.current;
-      for (let i = 0; i < offlineData.length; i++) {
-        const dots = offlineData[i].Dots;
-        for (let j = 0; j < dots.length; j++) {
-          const dot = dots[j];
-          await new Promise<void>(resolve => {
-            strokeProcess(dot);
-            setTimeout(resolve, 500);
-          });
-        }
-
-        offlineDataRef.current = offlineDataRef.current?.slice(1);
+  
+      const currentGroup = Array.from(groupedOfflineData.entries())[currentGroupIndex.current];
+      const [pageInfoKey, dots] = currentGroup;
+  
+      setIsDrawingPaused(true);
+      await setCurrentPageInfoAndPrepare(dots[0].pageInfo);
+  
+      for (const dot of dots) {
+        await new Promise<void>(resolve => {
+          strokeProcess(dot);
+          setTimeout(resolve, 50);
+        });
       }
+  
+      currentGroupIndex.current++;
+      processNextGroup();
+    };
 
-      setOfflineDataDrawing(false);
-      offlineDataRef.current = null;
+    if (offlineDataDrawing && groupedOfflineData.size > 0) {
+      processNextGroup();
     }
+  }, [offlineDataDrawing, groupedOfflineData]);
 
-    if (offlineDataRef.current === null) {
-      return;
-    }
-
-    if (!offlineDataDrawing) {
-      return;
-    }
-
-    if (pageInfo && paperSize) {
-      drawingOfflineData();
-    } else {
-      setPageInfo(offlineDataRef.current[0].Dots[0].pageInfo);
-    }
-  }, [offlineDataDrawing, pageInfo, paperSize]);
+  const drawingOffline = async () => {
+    setOfflineDataDrawing(true);
+  }
 
   /**
    * This callback type is called `dotCallback`.
@@ -313,7 +378,7 @@ const PenBasic = () => {
    * @param {Dot} dot
    */
   const processDot = (dot: Dot) => {
-    if (!isBackgroundImageSet || imageBlobUrl === undefined || !paperSize) {
+    if (!isBackgroundImageSetRef.current || !imageBlobUrlRef.current || !paperSizeRef.current) {
       pendingDotsRef.current.push(dot);
       return;
     }
@@ -327,11 +392,11 @@ const PenBasic = () => {
         dot,
         view,
         angle,
-        paperSize
+        paperSizeRef.current
       );
     } else {
       // Default
-      screenDot = PenHelper.ncodeToScreen(dot, view, paperSize);
+      screenDot = PenHelper.ncodeToScreen(dot, view, paperSizeRef.current);
     }
 
     try {
@@ -359,10 +424,6 @@ const PenBasic = () => {
       console.log("ctx : " + ctx);
     }
   };
-
-  const drawingOffline = async () => {
-    setOfflineDataDrawing(true);
-  }
   /**
    * Process ncode dot.
    *
@@ -378,18 +439,30 @@ const PenBasic = () => {
       return;
     }
     console.log(
-      `s: ${pageInfo?.section}, o: ${pageInfo?.owner}, b: ${pageInfo?.book}, p: ${pageInfo?.page}`
+      `s: ${currentPageInfoRef.current?.section}, o: ${currentPageInfoRef.current?.owner}, b: ${currentPageInfoRef.current?.book}, p: ${currentPageInfoRef.current?.page}`
     );
-    /** Update pageInfo either pageInfo !== NULL_PageInfo or pageInfo changed */
-    if (
-      (!pageInfo && !PenHelper.isSamePage(dot.pageInfo, NULL_PageInfo)) ||
-      (pageInfo && !PenHelper.isSamePage(pageInfo, dot.pageInfo))
-    ) {
+
+    if (PenHelper.isSamePage(dot.pageInfo, NULL_PageInfo)) {
+      return;
+    }
+    if (isDrawingPaused) {
       pendingDotsRef.current.push(dot);
-      setPageInfo(dot.pageInfo);
-    } else {
-      processDot(dot);
-    };
+      return;
+    }
+
+    /** Update pageInfo either pageInfo !== NULL_PageInfo or pageInfo changed */
+    if ((!currentPageInfoRef.current && !PenHelper.isSamePage(dot.pageInfo, NULL_PageInfo)) ||
+      (currentPageInfoRef.current && !PenHelper.isSamePage(currentPageInfoRef.current, dot.pageInfo))) {
+      setIsDrawingPaused(true);
+      setCurrentPageInfoAndPrepare(dot.pageInfo);
+    }
+
+    if (!isBackgroundImageSetRef.current || imageBlobUrlRef.current === undefined || !paperSizeRef.current) {
+      pendingDotsRef.current.push(dot);
+      return;
+    }
+
+    processDot(dot);
   }
 
   let resolveOfflineDataPromise: {
@@ -575,7 +648,7 @@ const PenBasic = () => {
    */
   const setCanvasAngle = (rotate: number) => {
     if (![0, 90, 180, 270].includes(rotate)) return;
-    if (!pageInfo || !PenHelper.isPlatePaper(pageInfo)) return;
+    if (!currentPageInfoRef.current || !PenHelper.isPlatePaper(currentPageInfoRef.current)) return;
 
     if (
       Math.abs(angle - rotate) / 90 === 1 ||
