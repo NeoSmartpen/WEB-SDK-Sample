@@ -88,6 +88,7 @@ const PenBasic = () => {
 
   const [ignored, forceUpdate] = useReducer((x) => x + 1, 0);
   const offlineDataRef = useRef<Stroke[] | null>(null);
+  const offlineDataReceiveCompletedRef = useRef<boolean>(false);
   const [offlineDataDrawing, setOfflineDataDrawing] = useState<boolean>(false);
   
   const [isDrawingPaused, setIsDrawingPaused] = useState<boolean>(false);
@@ -527,6 +528,11 @@ const PenBasic = () => {
     }
   };
 
+  const offlineDataInit = () => {
+    offlineDataRef.current = [];
+    offlineDataReceiveCompletedRef.current = false;
+  }
+
   /**
    * Message callback process. (Pen Event Processing)
    *
@@ -601,17 +607,26 @@ const PenBasic = () => {
         }
         break;
       case PenMessageType.OFFLINE_DATA_SEND_START:
-        console.log(args);
+        offlineDataInit();
+        break;
+      case PenMessageType.OFFLINE_DATA_SEND_STATUS:
+        if (args === 100) {
+          offlineDataReceiveCompletedRef.current = true;
+        }
         break;
       case PenMessageType.OFFLINE_DATA_SEND_SUCCESS:
       case PenMessageType.OFFLINE_DATA_SEND_FAILURE:
         if (resolveOfflineDataPromise) {
           if (type === PenMessageType.OFFLINE_DATA_SEND_SUCCESS) {
-            resolveOfflineDataPromise.resolve(args);
+            offlineDataRef.current?.push(...args);
+            if (offlineDataReceiveCompletedRef.current) {
+              resolveOfflineDataPromise.resolve(offlineDataRef.current as Stroke[]);
+              resolveOfflineDataPromise = null;
+            }
           } else {
             resolveOfflineDataPromise.reject(args);
+            resolveOfflineDataPromise = null;
           }
-          resolveOfflineDataPromise = null;
         }
         break;
       default:
