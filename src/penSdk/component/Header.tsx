@@ -6,6 +6,7 @@ import PasswordButton from "../buttons/PasswordButton";
 import ProfileButton from "../buttons/ProfileButton";
 import FirmwareButton from "../buttons/FirmwareButton";
 import OfflineButton from "../buttons/OfflineButton";
+import ExportButton from "../buttons/ExportButton";
 
 const useStyle = makeStyles((theme) => ({
   wrap: {
@@ -64,6 +65,10 @@ const Header = ({
   authorized,
   offlineData,
   drawingOffline,
+  strokes,
+  paperSize,
+  imageBlobUrl,
+  setStrokes,
 }) => {
   const classes = useStyle();
   return (
@@ -83,6 +88,7 @@ const Header = ({
           {authorized ? `Battery: ${penSettingInfo.Battery}` : ""}
         </Typography>
         {authorized ? <FirmwareButton controller={controller} /> : ""}
+        {authorized ? <ExportButton strokes={strokes} paperSize={paperSize} imageBlobUrl={imageBlobUrl} setStrokes={setStrokes} /> : ""}
         {/* {authorized ? <ProfileButton controller={controller} /> : ""} */}
         {authorized ? (
           <PasswordButton controller={controller} passwordPen={passwordPen} />

@@ -11,7 +11,6 @@ import {
   Dot,
   PageInfo,
   ScreenDot,
-  PaperSize,
   VersionInfo,
   SettingInfo,
 } from "web_pen_sdk/dist/Util/type";
@@ -23,6 +22,7 @@ import alice from "../../assets/alice_Quiz03.nproj";
 interface Stroke {
   Dots: Dot[];
 }
+
 interface OfflinePageData {
   Section: number;
   Owner: number;
@@ -90,7 +90,7 @@ const PenBasic = () => {
   const offlineDataRef = useRef<Stroke[] | null>(null);
   const offlineDataReceiveCompletedRef = useRef<boolean>(false);
   const [offlineDataDrawing, setOfflineDataDrawing] = useState<boolean>(false);
-  
+
   const [isDrawingPaused, setIsDrawingPaused] = useState<boolean>(false);
   const [groupedOfflineData, setGroupedOfflineData] = useState<Map<string, Dot[]>>(new Map());
   const currentGroupIndex = useRef<number>(0);
@@ -99,11 +99,15 @@ const PenBasic = () => {
   const [isBackgroundImageSet, setIsBackgroundImageSet] = useState<boolean>(false);
   const [imageBlobUrl, setImageBlobUrl] = useState<any>();
   const [paperSize, setPaperSize] = useState<any>(null);
-  
+
   const currentPageInfoRef = useRef<PageInfo | null>(null);
   const isBackgroundImageSetRef = useRef(false);
   const imageBlobUrlRef = useRef(null);
   const paperSizeRef = useRef(null);
+
+  const [inkmlDotArr, setInkmlDotArr] = useState<{ x: number, y: number, f: number, deltaTime: number }[]>([]);
+  const [strokes, setStrokes] = useState<Array<{ key: string, section: number, owner: number, book: number, page: number, thickness: number, color: string, startTime: number, dotArray: { x: number, y: number, f: number, deltaTime: number }[] }>>([],);
+  const strokeDownTime = useRef<number>(0);
 
   useEffect(() => {
     const { canvas, hoverCanvas } = createCanvas();
@@ -145,7 +149,7 @@ const PenBasic = () => {
       }
     });
   };
-
+  // 노트 배경 이미지 가져오기
   async function getNoteImageUsingAPI(pageInfo) {
     if (PenHelper.isPUI(pageInfo)) {
       return;
@@ -309,20 +313,20 @@ const PenBasic = () => {
         setOfflineDataDrawing(false);
         return;
       }
-  
+
       const currentGroup = Array.from(groupedOfflineData.entries())[currentGroupIndex.current];
       const [pageInfoKey, dots] = currentGroup;
-  
+
       setIsDrawingPaused(true);
       await setCurrentPageInfoAndPrepare(dots[0].pageInfo);
-  
+
       for (const dot of dots) {
         await new Promise<void>(resolve => {
           strokeProcess(dot);
           setTimeout(resolve, 50);
         });
       }
-  
+
       currentGroupIndex.current++;
       processNextGroup();
     };
@@ -372,7 +376,7 @@ const PenBasic = () => {
     pendingDotsRef.current.forEach((dot) => processDot(dot));
     pendingDotsRef.current = [];
   };
-  
+
   /**
    * Process pending dot after pageInfo is updated.
    *
@@ -383,7 +387,6 @@ const PenBasic = () => {
       pendingDotsRef.current.push(dot);
       return;
     }
-
     /** Convert SmartPlate ncode dot coordinate values ​​according to the view size */
     const view = { width: canvasFb.width, height: canvasFb.height };
     let screenDot: ScreenDot;
@@ -425,6 +428,34 @@ const PenBasic = () => {
       console.log("ctx : " + ctx);
     }
   };
+  const saveStrokes = (dot: Dot) => {
+    if (dot.dotType === 1) {
+      // Pen Move
+      const dotObj = { x: dot.x, y: dot.y, f: dot.f, deltaTime: (dot as any).timeDiff };
+      setInkmlDotArr(prev => [...prev, dotObj]);
+      console.log(dotObj);
+    } else if (dot.dotType === 2) {
+      // Pen Up
+      const newStroke =
+      {
+        key: "key=" + dot.x + "," + dot.y,
+        section: dot.pageInfo.section,
+        owner: dot.pageInfo.owner,
+        book: dot.pageInfo.book,
+        page: dot.pageInfo.page,
+        thickness: 0.2,
+        color: "#000000",
+        startTime: strokeDownTime.current ?? dot.timeStamp,
+        dotArray: inkmlDotArr,
+      };
+      setStrokes([...strokes, newStroke]);
+      console.log(strokes);
+      setInkmlDotArr([]);
+      strokeDownTime.current = 0;
+    } else if (dot.dotType === 0) {
+      strokeDownTime.current = dot.timeStamp;
+    }
+  }
   /**
    * Process ncode dot.
    *
@@ -439,17 +470,8 @@ const PenBasic = () => {
       }
       return;
     }
-    console.log(
-      `s: ${currentPageInfoRef.current?.section}, o: ${currentPageInfoRef.current?.owner}, b: ${currentPageInfoRef.current?.book}, p: ${currentPageInfoRef.current?.page}`
-    );
 
-    if (PenHelper.isSamePage(dot.pageInfo, NULL_PageInfo)) {
-      return;
-    }
-    if (isDrawingPaused) {
-      pendingDotsRef.current.push(dot);
-      return;
-    }
+    saveStrokes(dot);
 
     /** Update pageInfo either pageInfo !== NULL_PageInfo or pageInfo changed */
     if ((!currentPageInfoRef.current && !PenHelper.isSamePage(dot.pageInfo, NULL_PageInfo)) ||
@@ -748,6 +770,10 @@ const PenBasic = () => {
         authorized={authorized}
         offlineData={offlineDataRef.current}
         drawingOffline={drawingOffline}
+        strokes={strokes}
+        setStrokes={setStrokes}
+        paperSize={paperSize}
+        imageBlobUrl={imageBlobUrl}
       />
       <div id="abc" className={classes.mainBackground}>
         <canvas
@@ -771,7 +797,7 @@ const PenBasic = () => {
           <Button
             variant="contained"
             color="primary"
-            size="large"
+            size="large" 
             onClick={() => setPlateMode(!plateMode)}
           >
             {plateMode ? "Plate mode off" : "Plate mode on"}
