@@ -9,6 +9,8 @@
     "fabric": "^5.2.1",
     "firebase": "^9.6.11",
     "jszip": "^3.9.1",
+    "neo-inkml": "^0.1.5",
+    "pdf-lib": "^1.17.1",
     "query-string": "^7.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
