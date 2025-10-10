@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 import { strokesToInkML } from 'neo-inkml';
 import { PDFDocument, rgb } from 'pdf-lib';
 const ExportButton = ({ strokes, paperSize, imageBlobUrl, setStrokes }) => {

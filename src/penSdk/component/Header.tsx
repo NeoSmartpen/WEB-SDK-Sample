@@ -1,5 +1,6 @@
 import React from "react";
-import { makeStyles, Typography } from "@material-ui/core";
+import { Typography } from "@mui/material";
+import { makeStyles } from "@mui/styles";
 import LogoTextImage from "../../assets/pwa152.png";
 import ConnectButton from "../buttons/ConnectButton";
 import PasswordButton from "../buttons/PasswordButton";
@@ -79,13 +80,13 @@ const Header = ({
       </div>
       <div className={classes.navStyle}>
         <Typography variant="subtitle2" className={classes.penIfno}>
-          {authorized ? `Mac: ${penVersionInfo.MacAddress}` : ""}
+          {authorized ? `Mac: ${penVersionInfo?.MacAddress}` : ""}
         </Typography>
         <Typography variant="subtitle2" className={classes.penIfno}>
-          {authorized ? `HoverMode: ${penSettingInfo.HoverMode}` : ""}
+          {authorized ? `HoverMode: ${penSettingInfo?.HoverMode}` : ""}
         </Typography>
         <Typography variant="subtitle2" className={classes.penIfno}>
-          {authorized ? `Battery: ${penSettingInfo.Battery}` : ""}
+          {authorized ? `Battery: ${penSettingInfo?.Battery}` : ""}
         </Typography>
         {authorized ? <FirmwareButton controller={controller} /> : ""}
         {authorized ? <ExportButton strokes={strokes} paperSize={paperSize} imageBlobUrl={imageBlobUrl} setStrokes={setStrokes} /> : ""}

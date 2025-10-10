@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
 import React from "react";
-import { Button } from "@material-ui/core";
+import { Button } from "@mui/material";
 
 const OfflineButton = ({
   controller,

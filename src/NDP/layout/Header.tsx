@@ -1,5 +1,6 @@
 import React from 'react';
-import { makeStyles, Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
 import LoginButton from "../component/LoginButton"
 import SocketButton from '../component/SocketButton';
 import LogoTextImage from '../../assets/pwa152.png';
